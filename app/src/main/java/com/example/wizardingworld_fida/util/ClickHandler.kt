@@ -1,7 +1,7 @@
 package com.example.wizardingworld_fida.util
 
-import com.example.wizardingworld_fida.data.model.CharacterItemModel
+import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 
 interface ClickHandler {
-    fun clickedCharacterItem(character: CharacterItemModel)
+    fun clickedCharacterItem(character: CharacterDetailModel)
 }

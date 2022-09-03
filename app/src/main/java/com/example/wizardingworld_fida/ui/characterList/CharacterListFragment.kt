@@ -28,11 +28,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class CharacterListFragment : Fragment(),ClickHandler {
+class CharacterListFragment : Fragment() {
     private lateinit var binding: FragmentCharacterListBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var charactersAdapter: CharactersAdapter
-    private lateinit var scrollListener: RecyclerView.OnScrollListener
 
     private lateinit var characterPageAdapter: CharacterPageAdapter
 
@@ -46,36 +44,32 @@ class CharacterListFragment : Fragment(),ClickHandler {
         savedInstanceState: Bundle?
     ): View? {
 
-        var isLoading = false
-        var isLastPage = false
-        var isScrolling = false
         binding = FragmentCharacterListBinding.inflate(inflater)
 
         val viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
 
         recyclerView = binding.rvSchoolList
-
-//        scrollListener = object: RecyclerView.OnScrollListener(){
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if(!recyclerView.canScrollVertically(1) && dy>0){
-//                    viewModel.getCharactersFromApi()
-//                    isScrolling = false
-//                }
-//            }
-//
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-//                    isScrolling = true
-//                }
-//            }
-//        }
         setupRecyclerView()
         lifecycleScope.launchWhenCreated {
-            viewModel.getListData().collectLatest {
-                characterPageAdapter.submitData(it)
+            if(checkForInternet(requireContext())){
+                viewModel.getListData().collectLatest {
+                    characterPageAdapter.submitData(it)
+                }
             }
+            else{
+                Toast.makeText(context,"No Internet",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        characterPageAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("character", it)
+            }
+            findNavController().navigate(
+                R.id.action_characterListFragment_to_characterDetailFragment,
+                bundle
+            )
         }
 
 //        if(checkForInternet(requireContext())){
@@ -113,25 +107,16 @@ class CharacterListFragment : Fragment(),ClickHandler {
         recyclerView.apply {
             adapter = characterPageAdapter
             layoutManager = LinearLayoutManager(context)
-            //addOnScrollListener(this@CharacterListFragment.scrollListener)
         }
     }
 
-//    private fun setupRecyclerView() {
-//        charactersAdapter = CharactersAdapter()
-//        recyclerView.apply {
-//            adapter = charactersAdapter
-//            layoutManager = LinearLayoutManager(context)
-//            addOnScrollListener(this@CharacterListFragment.scrollListener)
-//        }
+//
+//    override fun clickedCharacterItem(character: CharacterItemModel) {
+//        Log.d("clickedperson", "$character")
+//        var bundle= Bundle()
+//        bundle.putSerializable("character",character)
+//
+//        findNavController().navigate(R.id.action_characterListFragment_to_characterDetailFragment, bundle)
 //    }
-
-    override fun clickedCharacterItem(character: CharacterItemModel) {
-        Log.d("clickedperson", "$character")
-        var bundle= Bundle()
-        bundle.putSerializable("character",character)
-
-        findNavController().navigate(R.id.action_characterListFragment_to_characterDetailFragment, bundle)
-    }
 
 }

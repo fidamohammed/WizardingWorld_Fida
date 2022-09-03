@@ -22,6 +22,10 @@ class CharacterPageAdapter: PagingDataAdapter<CharacterItemModel, CharacterPageA
         )
             .into(holder.binding.ivCharacterList)
 
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { it(character!!) }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterPageAdapter.CharacterViewHolder {
@@ -32,6 +36,13 @@ class CharacterPageAdapter: PagingDataAdapter<CharacterItemModel, CharacterPageA
         val binding = CharacterListItemBinding.bind(itemView)
 
     }
+
+    private var onItemClickListener: ((CharacterItemModel) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (CharacterItemModel) -> Unit) {
+        onItemClickListener = listener
+    }
+
     class DiffUtilCallback : DiffUtil.ItemCallback<CharacterItemModel>(){
         override fun areItemsTheSame(
             oldItem: CharacterItemModel,

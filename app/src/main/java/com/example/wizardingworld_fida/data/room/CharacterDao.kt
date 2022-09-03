@@ -1,9 +1,6 @@
 package com.example.wizardingworld_fida.data.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import kotlinx.coroutines.flow.Flow
 
@@ -15,4 +12,7 @@ interface CharacterDao {
 
     @Query("Select * from Character")
     fun getFavoritesFromDb(): Flow<List<CharacterDetailModel>>
+
+    @Delete
+    suspend fun deleteFavorite(characterDetailModel: CharacterDetailModel)
 }

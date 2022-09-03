@@ -1,12 +1,15 @@
 package com.example.wizardingworld_fida.ui.characterList
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.data.repository.Repository
 import com.example.wizardingworld_fida.data.repository.RepositoryImpl
@@ -28,6 +31,19 @@ class CharacterListViewModel @Inject constructor(val repository: RepositoryImpl)
 
     var characterPage = 1
     var characterResponse: ArrayList<CharacterItemModel>? =null
+
+    lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
+
+    fun getFavoritesFromDb(){
+        favoriteCharacters = repository.getFavorites().asLiveData()
+    }
+
+    fun deleteFromFavorite(characterDetailModel: CharacterDetailModel){
+        viewModelScope.launch {
+            repository.deleteFavorite(characterDetailModel)
+        }
+
+    }
 
 //    init {
 //        getCharactersFromApi()

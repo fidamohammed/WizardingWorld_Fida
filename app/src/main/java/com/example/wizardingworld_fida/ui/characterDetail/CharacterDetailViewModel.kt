@@ -1,7 +1,10 @@
 package com.example.wizardingworld_fida.ui.characterDetail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.data.repository.Repository
 import com.example.wizardingworld_fida.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +19,8 @@ class CharacterDetailViewModel @Inject constructor(val repository: Repository): 
     private val _characterDetail : MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val characterDetail: StateFlow<UiState> get() = _characterDetail
 
+    lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
+
     fun getCharacterDetail(id: Int){
         viewModelScope.launch {
             try{
@@ -25,9 +30,17 @@ class CharacterDetailViewModel @Inject constructor(val repository: Repository): 
             catch (e: Exception){
                 _characterDetail.value = UiState.Error("Error -> ${e.message}")
             }
-
         }
+    }
 
+    fun saveFavoriteToDb(character:CharacterDetailModel){
+        viewModelScope.launch {
+            repository.saveFavoriteIntoDb(character)
+        }
+    }
+
+    fun getFavoritesFromDb(){
+        favoriteCharacters = repository.getFavorites().asLiveData()
     }
 
 }

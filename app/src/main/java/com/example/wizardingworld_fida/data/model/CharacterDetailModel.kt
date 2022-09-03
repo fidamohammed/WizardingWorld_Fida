@@ -4,6 +4,7 @@ package com.example.wizardingworld_fida.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "Character")
 data class CharacterDetailModel(
@@ -66,4 +67,4 @@ data class CharacterDetailModel(
     val wand: List<WandModel?>? = listOf(),
     @SerializedName("weight")
     val weight: String? = ""
-)
+) : Serializable

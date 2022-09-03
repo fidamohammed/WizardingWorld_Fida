@@ -1,4 +1,4 @@
-package com.example.wizardingworld_fida.ui.characterList
+package com.example.wizardingworld_fida.ui.favourites
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,14 +8,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.wizardingworld_fida.R
-import com.example.wizardingworld_fida.data.model.CharacterItemModel
+import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.databinding.CharacterListItemBinding
 import com.example.wizardingworld_fida.util.ClickHandler
 
-class CharacterAdapter(val context: Context,
-                       val characterList : ArrayList<CharacterItemModel>,
+class FavoritesAdapter(val context: Context,
+                       val characterList : List<CharacterDetailModel>,
                        val clickListener: ClickHandler)
-    : RecyclerView.Adapter<CharacterAdapter.ItemViewHolder>() {
+: RecyclerView.Adapter<FavoritesAdapter.ItemViewHolder>() {
+    inner class ItemViewHolder(characterItem: View): RecyclerView.ViewHolder(characterItem),View.OnClickListener {
+        val binding = CharacterListItemBinding.bind(characterItem)
+
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val currentCharacter = characterList[adapterPosition]
+            clickListener.clickedCharacterItem(currentCharacter)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.character_list_item,parent,false))
@@ -32,20 +44,4 @@ class CharacterAdapter(val context: Context,
     }
 
     override fun getItemCount(): Int = characterList.size
-
-
-    inner class ItemViewHolder(character: View):RecyclerView.ViewHolder(character),View.OnClickListener {
-        val binding = CharacterListItemBinding.bind(character)
-
-        init {
-            binding.root.setOnClickListener(this)
-        }
-
-        override fun onClick(p0: View?) {
-            val currentCharacter = characterList[adapterPosition]
-            //clickListener.clickedCharacterItem(currentCharacter)
-        }
-
-    }
-
 }
