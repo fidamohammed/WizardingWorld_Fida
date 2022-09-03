@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/detail_body_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/labelBorn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Born"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tvBorn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/labelDied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Died"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tvDied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/labelBlood"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Blood"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tvBlood"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/labelGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/labelBoggart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Boggart"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tvBoggart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/labelHouse"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="House"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tvHouse"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
