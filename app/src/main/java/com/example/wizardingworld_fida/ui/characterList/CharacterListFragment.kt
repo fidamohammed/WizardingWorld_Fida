@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wizardingworld_fida.R
@@ -31,6 +33,7 @@ import kotlinx.coroutines.flow.collectLatest
 class CharacterListFragment : Fragment() {
     private lateinit var binding: FragmentCharacterListBinding
     private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
 
     private lateinit var characterPageAdapter: CharacterPageAdapter
 
@@ -47,6 +50,33 @@ class CharacterListFragment : Fragment() {
         binding = FragmentCharacterListBinding.inflate(inflater)
 
         val viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
+
+//        searchView = binding.svCharacterList
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(p0: String?): Boolean {
+//                val searchterm = searchView.query.toString()
+//                if(searchterm.isEmpty()){
+//
+//                }
+//                else{
+//                    viewModel.searchCharacter(searchterm)
+//                    viewModel.searchResult.observe(viewLifecycleOwner){ item->
+//                        Log.d("search","$item")
+//                    }
+//                }
+//                return false
+//            }
+//
+//
+//
+//            override fun onQueryTextChange(p0: String?): Boolean {
+//
+//                return false
+//            }
+//
+//        })
+
 
         recyclerView = binding.rvSchoolList
         setupRecyclerView()

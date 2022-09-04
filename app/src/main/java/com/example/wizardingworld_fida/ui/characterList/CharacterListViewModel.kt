@@ -1,10 +1,7 @@
 package com.example.wizardingworld_fida.ui.characterList
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -19,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.launch
 import org.w3c.dom.CharacterData
 import javax.inject.Inject
@@ -33,6 +31,7 @@ class CharacterListViewModel @Inject constructor(val repository: RepositoryImpl)
     var characterResponse: ArrayList<CharacterItemModel>? =null
 
     lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
+    lateinit var searchResult: MutableLiveData<List<CharacterItemModel>?>
 
     fun getFavoritesFromDb(){
         favoriteCharacters = repository.getFavorites().asLiveData()
@@ -53,6 +52,16 @@ class CharacterListViewModel @Inject constructor(val repository: RepositoryImpl)
         return Pager (config = PagingConfig(pageSize = 20, maxSize = 200),
             pagingSourceFactory = { CharacterPagingSource(repository) }).flow.cachedIn(viewModelScope)
     }
+
+//    fun searchCharacter(character: String){
+//        val data = characterResponse?.filter {
+//            it.name == character
+//        }
+//        if(data!=null){
+//            searchResult.value = data
+//            }
+//
+//    }
 
     fun getCharactersFromApi(){
         viewModelScope.launch {
