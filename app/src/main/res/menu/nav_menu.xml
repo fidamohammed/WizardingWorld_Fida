@@ -13,6 +13,11 @@
             android:icon="@drawable/favourite"
             android:title="My Favourites"/>
 
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="Logout"/>
+
     </group>
 
 </menu>

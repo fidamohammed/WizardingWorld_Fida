@@ -7,13 +7,15 @@
         <entry key="app/src/main/res/drawable/person.xml" value="0.273" />
         <entry key="app/src/main/res/drawable/user.xml" value="0.273" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/character_detail_body.xml" value="0.2630208333333333" />
         <entry key="app/src/main/res/layout/character_detail_header.xml" value="0.25" />
         <entry key="app/src/main/res/layout/character_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.25893769152196117" />
         <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.2640625" />
-        <entry key="app/src/main/res/layout/nav_header.xml" value="0.2630208333333333" />
+        <entry key="app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_menu.xml" value="0.2630208333333333" />
       </map>
     </option>
