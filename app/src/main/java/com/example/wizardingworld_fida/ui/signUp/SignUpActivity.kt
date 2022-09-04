@@ -9,6 +9,8 @@ import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.databinding.ActivitySignUpBinding
 import com.example.wizardingworld_fida.ui.signIn.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -19,8 +21,8 @@ class SignUpActivity : AppCompatActivity() {
 
         binding = ActivitySignUpBinding.inflate(layoutInflater)
 
-        val emailField = binding.userName
-
+        val nameField = binding.userName
+        val emailField = binding.userEmail
         val passwordField = binding.userPassword
 
         val signUpButton = binding.signUpButton
@@ -32,6 +34,7 @@ class SignUpActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
         signUpButton.setOnClickListener {
+            val name = nameField.text.toString().trim()
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
             if(TextUtils.isEmpty(email)){
@@ -43,6 +46,15 @@ class SignUpActivity : AppCompatActivity() {
             else{
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
                     if(task.isSuccessful){
+                        val user = task.result.user
+                        val profileUpdates = userProfileChangeRequest {
+                            displayName = name
+                        }
+                        user!!.updateProfile(profileUpdates).addOnCompleteListener { nameTask->
+                            if(nameTask.isSuccessful){
+                                Toast.makeText(this,"Name Saved",Toast.LENGTH_SHORT).show()
+                            }
+                        }
                         Toast.makeText(this,"Successfully Registered",Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this,SignInActivity::class.java))
                     }

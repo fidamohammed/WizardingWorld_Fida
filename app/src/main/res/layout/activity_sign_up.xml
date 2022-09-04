@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.signUp.SignUpActivity"
-    android:padding="20dp">
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/loginHeader"
@@ -15,8 +15,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/header"
+        android:scaleType="fitXY"
 
+        tools:src="@drawable/header"/>
 
     <EditText
         android:id="@+id/userName"
@@ -25,9 +27,25 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:hint="Your Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginHeader"
+        />
+
+    <EditText
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Email id"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
         />
 
     <EditText
@@ -36,10 +54,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
+        android:hint="Password"
         android:layout_marginTop="20dp"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintTop_toBottomOf="@+id/userEmail"
          />
 
     <Button
@@ -67,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Already registered"
+            android:textColor="@color/white"
             android:textSize="16sp"/>
 
         <TextView
@@ -75,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:text="Login here"
-            android:textColor="@color/teal_700"
+            android:textColor="@color/purple_200"
             android:textStyle="bold"
             android:textSize="20sp"/>
 

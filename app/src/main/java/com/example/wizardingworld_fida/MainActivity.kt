@@ -1,28 +1,21 @@
 package com.example.wizardingworld_fida
 
-import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.get
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wizardingworld_fida.databinding.ActivityMainBinding
-import com.example.wizardingworld_fida.ui.characterList.CharacterListViewModel
 import com.example.wizardingworld_fida.ui.signIn.SignInActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             val loggedinUser = currentUser
+
             Log.d("LoggedInUser","$loggedinUser ")
             val drawer: DrawerLayout = binding.drawerLayout
             val navView: NavigationView = binding.navView
@@ -48,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
             val userId = headerView.findViewById<TextView>(R.id.loggedInUserId)
             val userName = headerView.findViewById<TextView>(R.id.loggedInUserName)
-//            userName.text = loggedinUser.uid
+            userName.text = loggedinUser.displayName
             userId.text = loggedinUser.email
 
             val navController = findNavController(R.id.navHostFragment)
@@ -83,4 +77,13 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController,appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+//    override fun onBackPressed() {
+//
+//        val currentFragment = supportFragmentManager.fragments.last()
+//        if(currentFragment.id == R.id.characterListFragment){
+//            finishAffinity()
+//        }
+//
+//
+//    }
 }

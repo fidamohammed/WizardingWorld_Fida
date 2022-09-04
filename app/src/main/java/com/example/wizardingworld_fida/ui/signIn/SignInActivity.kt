@@ -1,12 +1,11 @@
 package com.example.wizardingworld_fida.ui.signIn
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.wizardingworld_fida.MainActivity
-import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.databinding.ActivitySignInBinding
 import com.example.wizardingworld_fida.ui.signUp.SignUpActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -47,6 +46,7 @@ class SignInActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         Toast.makeText(this,"Successfully Logged In",Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this,MainActivity::class.java))
+                        finish()
                     }
                     else{
                         Toast.makeText(this,"Sign In Failed-> ${task.exception}",Toast.LENGTH_SHORT).show()
@@ -56,5 +56,14 @@ class SignInActivity : AppCompatActivity() {
         }
 
         setContentView(binding.root)
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
+
+//        val a = Intent(Intent.ACTION_MAIN)
+//        a.addCategory(Intent.CATEGORY_HOME)
+//        a.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//        startActivity(a)
     }
 }

@@ -110,6 +110,8 @@ class CharacterListFragment : Fragment() {
         }
     }
 
+
+
 //
 //    override fun clickedCharacterItem(character: CharacterItemModel) {
 //        Log.d("clickedperson", "$character")
