@@ -95,7 +95,7 @@ class SignInActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         Toast.makeText(this,"Successfully Logged In",Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this,MainActivity::class.java))
-                        finish()
+                        finishAffinity()
                     }
                     else{
                         Toast.makeText(this,"Sign In Failed-> ${task.exception}",Toast.LENGTH_SHORT).show()
@@ -128,6 +128,7 @@ class SignInActivity : AppCompatActivity() {
                                     val user = mAuth.currentUser
                                     Toast.makeText(this,"Successfully Logged In",Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(this,MainActivity::class.java))
+                                    finishAffinity()
                                     //updateUI(user)
                                 } else {
                                     // If sign in fails, display a message to the user.

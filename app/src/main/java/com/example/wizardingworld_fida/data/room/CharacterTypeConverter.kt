@@ -20,11 +20,11 @@ class CharacterTypeConverter {
     }
 
     @TypeConverter
-    fun HouseModelToString(houseModel: HouseModel): String = gson.toJson(houseModel)
+    fun HouseModelToString(houseModel: HouseModel?): String = gson.toJson(houseModel)
 
     @TypeConverter
-    fun stringToHouseModel(data: String): HouseModel {
-        val listType = object : TypeToken<HouseModel>() {}.type
+    fun stringToHouseModel(data: String): HouseModel? {
+        val listType = object : TypeToken<HouseModel?>() {}.type
         return gson.fromJson(data, listType)
     }
 
