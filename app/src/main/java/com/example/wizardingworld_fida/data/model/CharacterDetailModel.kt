@@ -60,7 +60,7 @@ data class CharacterDetailModel(
     @SerializedName("skin")
     val skin: String? = "",
     @SerializedName("species")
-    val species: List<String>,
+    val species: List<String>? = listOf(),
     @SerializedName("title")
     val title: String? = "",
     @SerializedName("wand")

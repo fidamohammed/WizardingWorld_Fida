@@ -25,7 +25,7 @@ class CharacterAdapter(val context: Context,
         holder.binding.nameCharacterList.text = characterList[position].name
         Glide.with(context).load(characterList[position].imageUrl).apply(
             RequestOptions()
-                .placeholder(R.drawable.user)
+                .placeholder(R.drawable.placeholder)
         )
             .into(holder.binding.ivCharacterList)
 

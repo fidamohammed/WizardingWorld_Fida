@@ -19,7 +19,7 @@ class CharacterDetailViewModel @Inject constructor(val repository: Repository): 
     private val _characterDetail : MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val characterDetail: StateFlow<UiState> get() = _characterDetail
 
-    lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
+   // lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
 
     fun getCharacterDetail(id: Int){
         viewModelScope.launch {
@@ -39,8 +39,8 @@ class CharacterDetailViewModel @Inject constructor(val repository: Repository): 
         }
     }
 
-    fun getFavoritesFromDb(){
-        favoriteCharacters = repository.getFavorites().asLiveData()
-    }
+//    fun getFavoritesFromDb(){
+//        favoriteCharacters = repository.getFavorites().asLiveData()
+//    }
 
 }

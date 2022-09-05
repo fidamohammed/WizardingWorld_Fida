@@ -42,8 +42,10 @@ class FavouritesFragment : Fragment(),ClickHandler {
     ): View? {
         val viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
         binding = FragmentCharacterListBinding.inflate(inflater)
+
         recyclerView = binding.rvSchoolList
         recyclerView.layoutManager = LinearLayoutManager(context)
+
         viewModel.getFavoritesFromDb()
         viewModel.favoriteCharacters.observe(viewLifecycleOwner){
             characterAdapter = FavoritesAdapter(requireContext(),it, this)

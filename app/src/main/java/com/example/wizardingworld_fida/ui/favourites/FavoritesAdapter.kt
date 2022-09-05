@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.wizardingworld_fida.R
+import com.example.wizardingworld_fida.data.api.NetworkDetails
 import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.databinding.CharacterListItemBinding
 import com.example.wizardingworld_fida.util.ClickHandler
+import okhttp3.HttpUrl.Companion.toHttpUrl
 
 class FavoritesAdapter(val context: Context,
                        val characterList : List<CharacterDetailModel>,

@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.databinding.CharacterListItemBinding
+import okhttp3.HttpUrl.Companion.toHttpUrl
 
 class CharacterPageAdapter: PagingDataAdapter<CharacterItemModel, CharacterPageAdapter.CharacterViewHolder>(DiffUtilCallback()) {
     override fun onBindViewHolder(holder: CharacterPageAdapter.CharacterViewHolder, position: Int) {

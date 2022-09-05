@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
+import com.example.wizardingworld_fida.MainActivity
 import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.databinding.ActivitySignUpBinding
 import com.example.wizardingworld_fida.ui.signIn.SignInActivity
@@ -52,11 +54,22 @@ class SignUpActivity : AppCompatActivity() {
                         }
                         user!!.updateProfile(profileUpdates).addOnCompleteListener { nameTask->
                             if(nameTask.isSuccessful){
-                                Toast.makeText(this,"Name Saved",Toast.LENGTH_SHORT).show()
+                                Log.d("name","Name Saved")
+                                //Toast.makeText(this,"Name Saved",Toast.LENGTH_SHORT).show()
                             }
                         }
                         Toast.makeText(this,"Successfully Registered",Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this,SignInActivity::class.java))
+                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task->
+                            if(task.isSuccessful){
+                                Toast.makeText(this,"Successfully Logged In",Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finishAffinity()
+                            }
+                            else{
+                                Toast.makeText(this,"Sign In Failed-> ${task.exception}",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        //startActivity(Intent(this,SignInActivity::class.java))
                     }
                     else{
                         Toast.makeText(this,"Registration Failed \n ${task.exception}",Toast.LENGTH_SHORT).show()

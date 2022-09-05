@@ -8,9 +8,9 @@ data class CharacterItemModel(
     @SerializedName("id")
     val id: Int,
     @SerializedName("image_url")
-    val imageUrl: String?,
+    val imageUrl: String? = "",
     @SerializedName("name")
     val name: String,
     @SerializedName("species")
-    val species: String?
+    val species: String? = ""
 ) : Serializable

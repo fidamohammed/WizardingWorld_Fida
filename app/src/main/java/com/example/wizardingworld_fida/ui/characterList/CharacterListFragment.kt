@@ -36,7 +36,6 @@ class CharacterListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -45,7 +44,6 @@ class CharacterListFragment : Fragment() {
     ): View? {
 
         binding = FragmentCharacterListBinding.inflate(inflater)
-
         val viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
 
         recyclerView = binding.rvSchoolList
@@ -59,7 +57,6 @@ class CharacterListFragment : Fragment() {
             else{
                 Toast.makeText(context,"No Internet",Toast.LENGTH_SHORT).show()
             }
-
         }
 
         characterPageAdapter.setOnItemClickListener {
@@ -72,34 +69,6 @@ class CharacterListFragment : Fragment() {
             )
         }
 
-//        if(checkForInternet(requireContext())){
-//            viewModel.getCharactersFromApi()
-//            viewModel.characters.asLiveData().observe(viewLifecycleOwner){ state->
-//
-//                when(state){
-//                    is UiState.Loading -> {
-//
-//                    }
-//                    is UiState.Error -> {
-//
-//                        Log.d("Error","Error -> ${state.error}")
-//                       // recyclerView.adapter = CharacterAdapter(requireContext(), arrayListOf(),this)
-//                    }
-//                    is UiState.Success<*> -> {
-//                        charactersAdapter.differ.submitList(state.schoolResponse as ArrayList<CharacterItemModel>)
-////                        recyclerView.adapter = CharacterAdapter(requireContext(),state.schoolResponse as ArrayList<CharacterItemModel> /* = java.util.ArrayList<com.example.wizardingworld_fida.data.model.CharacterItemModel> */,
-////                            this)
-//                        val totalPages = TOTAL_RESULTS / PAGE_SIZE + 2
-//                        isLastPage = viewModel.characterPage== totalPages
-//                    }
-//                }
-//            }
-//        }
-//        else{
-//            Toast.makeText(context,"No Internet Connection", Toast.LENGTH_SHORT).show()
-//        }
-
-
         return binding.root
     }
     private fun setupRecyclerView() {
@@ -109,16 +78,5 @@ class CharacterListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
     }
-
-
-
-//
-//    override fun clickedCharacterItem(character: CharacterItemModel) {
-//        Log.d("clickedperson", "$character")
-//        var bundle= Bundle()
-//        bundle.putSerializable("character",character)
-//
-//        findNavController().navigate(R.id.action_characterListFragment_to_characterDetailFragment, bundle)
-//    }
 
 }

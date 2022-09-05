@@ -1,6 +1,7 @@
 package com.example.wizardingworld_fida.ui.characterDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.wizardingworld_fida.R
@@ -16,6 +16,7 @@ import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.databinding.FragmentCharacterDetailBinding
 import com.example.wizardingworld_fida.util.UiState
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,13 +47,14 @@ class CharacterDetailFragment : Fragment() {
             characterDetailViewModel.characterDetail.asLiveData().observe(viewLifecycleOwner){state ->
                 when(state){
                     is UiState.Loading -> {
-
+                        CircularProgressIndicator(requireContext())
                     }
                     is UiState.Error -> {
-
+                        Toast.makeText(context,"Oops..! Something went wrong",Toast.LENGTH_SHORT).show()
+                        Log.d("error","${state.error}")
                     }
                     is UiState.Success<*> -> {
-                        val character = state.schoolResponse as CharacterDetailModel
+                        val character = state.characterResponse as CharacterDetailModel
                         updateUi(character)
                         favoriteButton.setOnClickListener {
                             characterDetailViewModel.saveFavoriteToDb(character)
@@ -60,10 +62,7 @@ class CharacterDetailFragment : Fragment() {
                         }
                     }
                 }
-
             }
-
-
         }
 
         return binding.root

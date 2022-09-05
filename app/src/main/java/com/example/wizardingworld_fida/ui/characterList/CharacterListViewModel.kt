@@ -24,7 +24,7 @@ import org.w3c.dom.CharacterData
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterListViewModel @Inject constructor(val repository: RepositoryImpl) : ViewModel() {
+class CharacterListViewModel @Inject constructor(val repository: Repository) : ViewModel() {
 
     private val _characters: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val characters: StateFlow<UiState> get() = _characters

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "348365547385",
+    "project_id": "wizardingworld-fida",
+    "storage_bucket": "wizardingworld-fida.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348365547385:android:527a99450907d5ed2631a8",
+        "android_client_info": {
+          "package_name": "com.example.wizardingworld_fida"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348365547385-gi90mu45u5cpmvsjff7rphnmvs1gphts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wizardingworld_fida",
+            "certificate_hash": "34ee3b4eb4246d8c128d67c29f2e9bdf7439e012"
+          }
+        },
+        {
+          "client_id": "348365547385-d6h2tum1gqscgoto87cjg1k6bfbqvu3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKF2o1Acq91LA7RGGoEspXuXEGRfDHm3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348365547385-d6h2tum1gqscgoto87cjg1k6bfbqvu3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
