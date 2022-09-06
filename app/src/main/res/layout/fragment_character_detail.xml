@@ -9,18 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/addToFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/add_to_favorite"
-            android:layout_gravity="end"
-            app:srcCompat="@drawable/add_to_favorite"
+            android:src="@drawable/add_to_favorite"
             android:backgroundTint="@color/purple_200"
+            android:background="@drawable/cicrular_button"
+            android:layout_gravity="end"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            />
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/addToFavorite"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:contentDescription="@string/add_to_favorite"-->
+<!--            android:layout_gravity="end"-->
+<!--            app:srcCompat="@drawable/add_to_favorite"-->
+<!--            android:backgroundTint="@color/purple_200"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="10dp"/>-->
 
     <include
         android:id="@+id/detailHeader"

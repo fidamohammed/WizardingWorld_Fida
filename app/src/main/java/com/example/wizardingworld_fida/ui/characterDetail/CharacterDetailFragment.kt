@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.bumptech.glide.Glide
@@ -39,7 +40,8 @@ class CharacterDetailFragment : Fragment() {
         if(arguments?.containsKey("favorite") == true){
             val character = requireArguments().get("favorite") as CharacterDetailModel
             updateUi(character)
-            favoriteButton.hide()
+            favoriteButton.isVisible = false
+            //favoriteButton.hide()
         }
         else{
             val character = requireArguments().get("character") as CharacterItemModel

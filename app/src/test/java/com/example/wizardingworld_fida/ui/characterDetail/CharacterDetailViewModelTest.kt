@@ -8,7 +8,9 @@ import com.example.wizardingworld_fida.util.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -38,6 +40,11 @@ class CharacterDetailViewModelTest{
         viewModel = CharacterDetailViewModel(repository)
     }
 
+    @After
+    fun tearDown(){
+        Dispatchers.resetMain()
+    }
+
     @Test
     fun `getCharacterDetail with result`()= runBlocking{
         whenever(repository.getCharacterDetail(1)).thenReturn(CharacterDetailModel(id=1, name = "test"))
@@ -54,6 +61,16 @@ class CharacterDetailViewModelTest{
         viewModel.characterDetail.asLiveData().observeForever {
             assertEquals(UiState.Error("Error -> Unable to resolve host \"legacy--api.herokuapp.com\": No address associated with hostname"),it)
         }
+    }
+
+    @Test
+    fun saveToFavorite()= runBlocking{
+        var list: MutableList<CharacterDetailModel> = mutableListOf()
+        whenever(repository.saveFavoriteIntoDb(
+            CharacterDetailModel(id = 11, name = "Sample11")))
+            .then { list.add(CharacterDetailModel(id = 11, name = "Sample11")) }
+        viewModel.saveFavoriteToDb(CharacterDetailModel(id = 11, name = "Sample11"))
+        assertEquals(listOf(CharacterDetailModel(id = 11, name = "Sample11")),list)
     }
 
 }

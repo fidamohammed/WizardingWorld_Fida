@@ -1,7 +1,9 @@
 package com.example.wizardingworld_fida.ui.characterList
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.paging.PagingData
 import com.example.wizardingworld_fida.data.model.CharacterDetailModel
+import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.data.repository.FakeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
