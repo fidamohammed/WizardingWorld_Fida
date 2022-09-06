@@ -40,7 +40,8 @@ class CharacterDetailFragment : Fragment() {
         if(arguments?.containsKey("favorite") == true){
             val character = requireArguments().get("favorite") as CharacterDetailModel
             updateUi(character)
-            favoriteButton.isVisible = false
+            favoriteButton.setImageResource(R.drawable.favourite)
+            //favoriteButton.isVisible = false
             //favoriteButton.hide()
         }
         else{
@@ -57,10 +58,19 @@ class CharacterDetailFragment : Fragment() {
                     }
                     is UiState.Success<*> -> {
                         val character = state.characterResponse as CharacterDetailModel
+                        characterDetailViewModel.checkIfFavorite(character.id)
+                        characterDetailViewModel.favoriteCharacters?.observe(viewLifecycleOwner){
+                            if(it != null){
+                                favoriteButton.setImageResource(R.drawable.favourite)
+                            }
+                        }
                         updateUi(character)
                         favoriteButton.setOnClickListener {
-                            characterDetailViewModel.saveFavoriteToDb(character)
-                            Snackbar.make(requireView(),"Added to Favorites",Snackbar.LENGTH_SHORT).show()
+                            if(characterDetailViewModel.favoriteCharacters?.value == null){
+                                characterDetailViewModel.saveFavoriteToDb(character)
+                                favoriteButton.setImageResource(R.drawable.favourite)
+                                Snackbar.make(requireView(),"Added to Favorites",Snackbar.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

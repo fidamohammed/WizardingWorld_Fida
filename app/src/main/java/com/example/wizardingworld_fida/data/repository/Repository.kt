@@ -14,4 +14,6 @@ interface Repository {
     fun getFavorites() : Flow<List<CharacterDetailModel>>
 
     suspend fun deleteFavorite(characterDetailModel: CharacterDetailModel)
+
+    fun checkIfFavorite(id:Int): Flow<CharacterDetailModel>
 }

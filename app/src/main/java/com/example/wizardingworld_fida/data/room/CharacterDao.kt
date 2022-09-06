@@ -15,4 +15,7 @@ interface CharacterDao {
 
     @Delete
     suspend fun deleteFavorite(characterDetailModel: CharacterDetailModel)
+
+    @Query("Select * from Character where id==:id")
+    fun checkFavoriteExist(id: Int):Flow<CharacterDetailModel>
 }

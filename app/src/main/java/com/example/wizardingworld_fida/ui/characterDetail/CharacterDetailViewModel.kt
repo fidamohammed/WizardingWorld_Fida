@@ -1,9 +1,6 @@
 package com.example.wizardingworld_fida.ui.characterDetail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.data.repository.Repository
 import com.example.wizardingworld_fida.util.UiState
@@ -19,7 +16,9 @@ class CharacterDetailViewModel @Inject constructor(val repository: Repository): 
     private val _characterDetail : MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val characterDetail: StateFlow<UiState> get() = _characterDetail
 
-   // lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
+    var isFavorite: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    var favoriteCharacters: LiveData<CharacterDetailModel>? =null
 
     fun getCharacterDetail(id: Int){
         viewModelScope.launch {
@@ -39,6 +38,10 @@ class CharacterDetailViewModel @Inject constructor(val repository: Repository): 
         }
     }
 
+    fun checkIfFavorite(id: Int){
+        favoriteCharacters = repository.checkIfFavorite(id).asLiveData()
+        //isFavorite.value = favoriteCharacters.value != null
+    }
 //    fun getFavoritesFromDb(){
 //        favoriteCharacters = repository.getFavorites().asLiveData()
 //    }

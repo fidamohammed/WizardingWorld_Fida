@@ -24,5 +24,9 @@ class RepositoryImpl @Inject constructor(val networkDetails: NetworkDetails, val
         characterDao.deleteFavorite(characterDetailModel)
     }
 
+    override fun checkIfFavorite(id: Int): Flow<CharacterDetailModel> =
+        characterDao.checkFavoriteExist(id)
+
+
 
 }
