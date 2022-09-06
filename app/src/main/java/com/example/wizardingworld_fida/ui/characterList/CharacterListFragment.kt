@@ -103,6 +103,15 @@ class CharacterListFragment : Fragment(),ClickHandler {
         else{
             Toast.makeText(context,"No Internet Connection", Toast.LENGTH_SHORT).show()
         }
+        charactersAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("character", it)
+            }
+            findNavController().navigate(
+                R.id.action_characterListFragment_to_characterDetailFragment,
+                bundle
+            )
+        }
 
 
         return binding.root

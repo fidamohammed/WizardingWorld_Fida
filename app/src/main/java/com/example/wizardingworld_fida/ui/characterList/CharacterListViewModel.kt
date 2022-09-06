@@ -5,22 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.data.repository.Repository
-import com.example.wizardingworld_fida.data.repository.RepositoryImpl
-import com.example.wizardingworld_fida.paging.CharacterPagingSource
 import com.example.wizardingworld_fida.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.w3c.dom.CharacterData
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,11 +30,6 @@ class CharacterListViewModel @Inject constructor(val repository: Repository) : V
         }
     }
 
-    fun getListData(): Flow<PagingData<CharacterItemModel>> {
-        return Pager (config = PagingConfig(pageSize = 20, maxSize = 200),
-            pagingSourceFactory = { CharacterPagingSource(repository) }).flow.cachedIn(viewModelScope)
-    }
-
 
     private val _characters: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val characters: StateFlow<UiState> get() = _characters
@@ -56,6 +43,7 @@ class CharacterListViewModel @Inject constructor(val repository: Repository) : V
 
     fun getCharactersFromApi(){
         viewModelScope.launch {
+            _characters.value = UiState.Loading
             val result = repository.getCharacters(characterPage)
             if(result.isEmpty()){
                 _characters.value = UiState.Error("empty response")
@@ -70,10 +58,11 @@ class CharacterListViewModel @Inject constructor(val repository: Repository) : V
                     val oldCharacters = characterResponse
                     val newCharacters = result
                     oldCharacters?.addAll(newCharacters)
+                    characterResponse = oldCharacters
 
                 }
                 _characters.value = UiState.Success(characterResponse?: result)
-                Log.d("Characters","$result")
+                //Log.d("Characters","$result")
             }
         }
     }

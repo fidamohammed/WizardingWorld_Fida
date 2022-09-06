@@ -51,7 +51,17 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHol
             .into(holder.binding.ivCharacterList)
 
 
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { it(character!!) }
+        }
+
     }
+    private var onItemClickListener: ((CharacterItemModel) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (CharacterItemModel) -> Unit) {
+        onItemClickListener = listener
+    }
+
 
     override fun getItemCount(): Int {
         return differ.currentList.size
