@@ -7,16 +7,14 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.wizardingworld_fida.MainActivity
+import com.example.wizardingworld_fida.ui.main.MainActivity
 import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.databinding.ActivitySignInBinding
 import com.example.wizardingworld_fida.ui.signUp.SignUpActivity
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
@@ -94,7 +92,7 @@ class SignInActivity : AppCompatActivity() {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task->
                     if(task.isSuccessful){
                         Toast.makeText(this,"Successfully Logged In",Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this,MainActivity::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
                         finishAffinity()
                     }
                     else{
@@ -127,7 +125,7 @@ class SignInActivity : AppCompatActivity() {
                                     Log.d("SignIn", "signInWithCredential:success")
                                     val user = mAuth.currentUser
                                     Toast.makeText(this,"Successfully Logged In",Toast.LENGTH_SHORT).show()
-                                    startActivity(Intent(this,MainActivity::class.java))
+                                    startActivity(Intent(this, MainActivity::class.java))
                                     finishAffinity()
                                     //updateUI(user)
                                 } else {

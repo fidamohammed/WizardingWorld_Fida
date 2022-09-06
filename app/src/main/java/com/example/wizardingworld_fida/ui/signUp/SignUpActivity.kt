@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.example.wizardingworld_fida.MainActivity
-import com.example.wizardingworld_fida.R
+import com.example.wizardingworld_fida.ui.main.MainActivity
 import com.example.wizardingworld_fida.databinding.ActivitySignUpBinding
 import com.example.wizardingworld_fida.ui.signIn.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class SignUpActivity : AppCompatActivity() {

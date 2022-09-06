@@ -1,4 +1,4 @@
-package com.example.wizardingworld_fida
+package com.example.wizardingworld_fida.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,12 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.databinding.ActivityMainBinding
 import com.example.wizardingworld_fida.ui.signIn.SignInActivity
 import com.google.android.material.navigation.NavigationView
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             val userName = headerView.findViewById<TextView>(R.id.loggedInUserName)
             userName.text = loggedinUser.displayName
             userId.text = loggedinUser.email
+
 
             val navController = findNavController(R.id.navHostFragment)
 
