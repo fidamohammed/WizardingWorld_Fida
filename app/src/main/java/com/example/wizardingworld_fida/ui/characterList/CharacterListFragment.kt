@@ -54,7 +54,7 @@ class CharacterListFragment : Fragment(),ClickHandler {
         val viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
 
         recyclerView = binding.rvSchoolList
-       // progressBar = binding.progressBar
+        progressBar = binding.progressBar
 
         scrollListener = object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

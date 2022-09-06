@@ -12,16 +12,14 @@ import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.databinding.CharacterListItemBinding
 
-class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.ItemViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CharactersAdapter.ItemViewHolder {
-        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.character_list_item,parent,false))
+class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
+
+
+    inner class CharacterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val binding = CharacterListItemBinding.bind(itemView)
     }
 
-
-    val differCallback = object : DiffUtil.ItemCallback<CharacterItemModel>() {
+    val differCallback = object : DiffUtil.ItemCallback<CharacterItemModel>(){
         override fun areItemsTheSame(
             oldItem: CharacterItemModel,
             newItem: CharacterItemModel
@@ -33,39 +31,32 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.ItemViewHolder>(
             oldItem: CharacterItemModel,
             newItem: CharacterItemModel
         ): Boolean {
-            return oldItem == newItem
+            return oldItem.name == newItem.name
         }
     }
+
     val differ = AsyncListDiffer(this,differCallback)
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+        return CharacterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.character_list_item,parent,false))
+    }
+
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val character = differ.currentList[position]
         holder.binding.nameCharacterList.text = character.name
-//        Glide.with(context).load(character.imageUrl).apply(
-//            RequestOptions()
-//                .placeholder(R.drawable.placeholder)
-//        )
-//            .into(holder.binding.ivCharacterList)
+        Glide.with(holder.itemView).load(character.imageUrl).apply(
+            RequestOptions()
+                .placeholder(R.drawable.user)
+        )
+            .into(holder.binding.ivCharacterList)
+
+
     }
 
-    override fun getItemCount(): Int =
-        differ.currentList.size
-
-
-    inner class ItemViewHolder(character: View):RecyclerView.ViewHolder(character), View.OnClickListener {
-        val binding = CharacterListItemBinding.bind(character)
-
-        init {
-            binding.root.setOnClickListener(this)
-        }
-
-        override fun onClick(p0: View?) {
-
-            //val currentCharacter = characterList[adapterPosition]
-            //clickListener.clickedCharacterItem(currentCharacter)
-        }
-
+    override fun getItemCount(): Int {
+        return differ.currentList.size
     }
+
 
 
 }

@@ -79,12 +79,14 @@ class FavouritesFragment : Fragment(),ClickHandler {
         return binding.root
     }
 
-    override fun clickedCharacterItem(character: CharacterDetailModel) {
+
+    override fun <T> clickedCharacterItem(character: T) {
         Log.d("clickedperson", "$character")
         var bundle= Bundle()
-        bundle.putSerializable("favorite",character)
+        bundle.putSerializable("favorite",character as CharacterDetailModel)
 
         findNavController().navigate(R.id.action_favouritesFragment_to_characterDetailFragment, bundle)
+
     }
 
 
