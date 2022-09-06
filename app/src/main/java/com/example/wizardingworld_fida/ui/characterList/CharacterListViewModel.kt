@@ -44,38 +44,38 @@ class CharacterListViewModel @Inject constructor(val repository: Repository) : V
     }
 
 
-//    private val _characters: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-//    val characters: StateFlow<UiState> get() = _characters
-//
-//    var characterPage = 1
-//    var characterResponse: ArrayList<CharacterItemModel>? =null
+    private val _characters: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    val characters: StateFlow<UiState> get() = _characters
 
-//    init {
-//        getCharactersFromApi()
-//    }
+    var characterPage = 1
+    var characterResponse: ArrayList<CharacterItemModel>? =null
 
-//    fun getCharactersFromApi(){
-//        viewModelScope.launch {
-//            val result = repository.getCharacters(characterPage)
-//            if(result.isEmpty()){
-//                _characters.value = UiState.Error("empty response")
-//                Log.d("Characters","$result")
-//            }
-//            else{
-//                characterPage++
-//                if(characterResponse == null){
-//                    characterResponse = result
-//                }
-//                else{
-//                    val oldCharacters = characterResponse
-//                    val newCharacters = result
-//                    oldCharacters?.addAll(newCharacters)
-//
-//                }
-//                _characters.value = UiState.Success(characterResponse?: result)
-//                Log.d("Characters","$result")
-//            }
-//        }
-//    }
+    init {
+        getCharactersFromApi()
+    }
+
+    fun getCharactersFromApi(){
+        viewModelScope.launch {
+            val result = repository.getCharacters(characterPage)
+            if(result.isEmpty()){
+                _characters.value = UiState.Error("empty response")
+                Log.d("Characters","$result")
+            }
+            else{
+                characterPage++
+                if(characterResponse == null){
+                    characterResponse = result
+                }
+                else{
+                    val oldCharacters = characterResponse
+                    val newCharacters = result
+                    oldCharacters?.addAll(newCharacters)
+
+                }
+                _characters.value = UiState.Success(characterResponse?: result)
+                Log.d("Characters","$result")
+            }
+        }
+    }
 
 }
