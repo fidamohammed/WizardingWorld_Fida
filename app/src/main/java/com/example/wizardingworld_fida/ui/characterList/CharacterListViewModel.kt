@@ -1,10 +1,7 @@
 package com.example.wizardingworld_fida.ui.characterList
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.wizardingworld_fida.data.model.CharacterDetailModel
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.data.repository.Repository
@@ -20,6 +17,18 @@ class CharacterListViewModel @Inject constructor(val repository: Repository) : V
 
     lateinit var favoriteCharacters: LiveData<List<CharacterDetailModel>>
 
+    private val _characters: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    val characters: StateFlow<UiState> get() = _characters
+
+    var characterPage = 1
+    var characterResponse: ArrayList<CharacterItemModel>? =null
+
+    var searchCharacters: MutableLiveData<List<CharacterItemModel>> = MutableLiveData(listOf())
+
+    init {
+        getCharactersFromApi()
+    }
+
     fun getFavoritesFromDb(){
         favoriteCharacters = repository.getFavorites().asLiveData()
     }
@@ -30,15 +39,9 @@ class CharacterListViewModel @Inject constructor(val repository: Repository) : V
         }
     }
 
+    fun searchCharacter(name: String){
 
-    private val _characters: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val characters: StateFlow<UiState> get() = _characters
-
-    var characterPage = 1
-    var characterResponse: ArrayList<CharacterItemModel>? =null
-
-    init {
-        getCharactersFromApi()
+        searchCharacters.value = characterResponse?.filter { it.name.contains(name) }
     }
 
     fun getCharactersFromApi(){

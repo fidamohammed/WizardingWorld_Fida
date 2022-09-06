@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ProgressBar
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -32,8 +33,10 @@ class CharacterListFragment : Fragment(),ClickHandler {
     private lateinit var binding: FragmentCharacterListBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
+    private lateinit var searchView: SearchView
     private lateinit var charactersAdapter: CharactersAdapter
     private lateinit var scrollListener: RecyclerView.OnScrollListener
+    var previousResult: ArrayList<CharacterItemModel> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,17 +52,19 @@ class CharacterListFragment : Fragment(),ClickHandler {
         var isLoading = false
         var isLastPage = false
         var isScrolling = false
+        var isSearching = false
         binding = FragmentCharacterListBinding.inflate(inflater)
 
         val viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
 
         recyclerView = binding.rvSchoolList
         progressBar = binding.progressBar
+        searchView = binding.svCharacterList
 
         scrollListener = object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(!recyclerView.canScrollVertically(1) && dy>0){
+                if(!recyclerView.canScrollVertically(1) && dy>0 && !isSearching){
                     viewModel.getCharactersFromApi()
                     isScrolling = false
                     progressBar.isVisible = true
@@ -90,6 +95,7 @@ class CharacterListFragment : Fragment(),ClickHandler {
                     }
                     is UiState.Success<*> -> {
                         progressBar.isVisible = false
+                        previousResult.addAll(state.characterResponse as ArrayList<CharacterItemModel>)
                         charactersAdapter.differ.submitList((state.characterResponse as ArrayList<CharacterItemModel>).toList())
 
 //                        recyclerView.adapter = CharacterAdapter(requireContext(),state.schoolResponse as ArrayList<CharacterItemModel> /* = java.util.ArrayList<com.example.wizardingworld_fida.data.model.CharacterItemModel> */,
@@ -113,6 +119,33 @@ class CharacterListFragment : Fragment(),ClickHandler {
             )
         }
 
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                isSearching = true
+                val searchterm = searchView.query.toString()
+                if(searchterm.isEmpty()){
+                        charactersAdapter.differ.submitList(previousResult)
+                }
+                else{
+                    viewModel.searchCharacter(searchterm)
+                    viewModel.searchCharacters.observe(viewLifecycleOwner){ item->
+                        Log.d("search","$item")
+                        charactersAdapter.differ.submitList(item)
+                    }
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
+        searchView.setOnCloseListener {
+            isSearching = false
+            charactersAdapter.differ.submitList(previousResult)
+            false
+        }
+
 
         return binding.root
     }
@@ -123,6 +156,7 @@ class CharacterListFragment : Fragment(),ClickHandler {
             adapter = charactersAdapter
             layoutManager = LinearLayoutManager(context)
             addOnScrollListener(this@CharacterListFragment.scrollListener)
+
         }
     }
     override fun <T> clickedCharacterItem(character: T) {

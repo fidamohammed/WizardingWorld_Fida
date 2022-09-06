@@ -12,6 +12,7 @@ import com.example.wizardingworld_fida.R
 import com.example.wizardingworld_fida.data.model.CharacterItemModel
 import com.example.wizardingworld_fida.databinding.CharacterListItemBinding
 
+
 class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
 
 
@@ -66,6 +67,8 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHol
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
+
 
 
 
